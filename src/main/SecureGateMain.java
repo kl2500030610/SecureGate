@@ -9,12 +9,15 @@ import services.AuthenticationService;
 import services.LogService;
 import utils.FileHandler;
 import utils.InputValidator;
+import services.AlertService;
 
 public class SecureGateMain {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+
+        AlertService alertService = new AlertService();
 
         FileHandler fileHandler = new FileHandler();
 
@@ -31,11 +34,12 @@ public class SecureGateMain {
 
         while (true) {
 
-            System.out.println("\n=== SecureGate System ===");
             System.out.println("1. Verify Access");
             System.out.println("2. Show Logs");
             System.out.println("3. Show Log Count");
-            System.out.println("4. Exit");
+            System.out.println("4. Show Alerts");
+            System.out.println("5. Handle Next Alert");
+            System.out.println("6. Exit");
 
             System.out.print("Choose option: ");
             int choice = sc.nextInt();
@@ -58,21 +62,22 @@ public class SecureGateMain {
                         break;
                     }
 
-                    boolean granted =
-                            authService.verifyCard(cardId, zoneId);
+                    boolean granted = authService.verifyCard(cardId, zoneId);
 
-                    User user =
-                            authService.getUserByCard(cardId);
+                    User user = authService.getUserByCard(cardId);
 
-                    String userId =
-                            (user != null) ? user.getUserId() : "UNKNOWN";
+                    String userId = (user != null) ? user.getUserId() : "UNKNOWN";
 
                     logService.recordLog(userId, zoneId, granted);
 
-                    System.out.println(granted ?
-                            "Access Granted" : "Access Denied");
+                    if (!granted) {
+                        alertService.generateAlert(
+                            "Unauthorized access attempt by card: " + cardId + " to zone " + zoneId,
+                            5
+                        );
+                    }
 
-                    break;
+                    System.out.println(granted ? "Access Granted" : "Access Denied");
 
                 case 2:
                     logService.showLogs();
@@ -84,6 +89,14 @@ public class SecureGateMain {
                     break;
 
                 case 4:
+                    alertService.showAllAlerts();
+                    break;
+
+                case 5:
+                    alertService.handleNextAlert();
+                    break;
+
+                case 6:
                     System.out.println("System shutting down...");
                     sc.close();
                     return;
