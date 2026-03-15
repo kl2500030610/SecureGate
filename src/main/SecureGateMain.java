@@ -42,24 +42,37 @@ public class SecureGateMain {
         new AnalysisService(logService.getLogList());
         while (true) {
 
+          System.out.println();
+          System.out.println();
+          
+          System.out.println("  █████████                                                    █████████             █████            \r\n" + //
+                            " ███░░░░░███                                                  ███░░░░░███           ░░███             \r\n" + //
+                            "░███    ░░░   ██████   ██████  █████ ████ ████████   ██████  ███     ░░░   ██████   ███████    ██████ \r\n" + //
+                            "░░█████████  ███░░███ ███░░███░░███ ░███ ░░███░░███ ███░░███░███          ░░░░░███ ░░░███░    ███░░███\r\n" + //
+                            " ░░░░░░░░███░███████ ░███ ░░░  ░███ ░███  ░███ ░░░ ░███████ ░███    █████  ███████   ░███    ░███████ \r\n" + //
+                            " ███    ░███░███░░░  ░███  ███ ░███ ░███  ░███     ░███░░░  ░░███  ░░███  ███░░███   ░███ ███░███░░░  \r\n" + //
+                            "░░█████████ ░░██████ ░░██████  ░░████████ █████    ░░██████  ░░█████████ ░░████████  ░░█████ ░░██████ \r\n" + //
+                            " ░░░░░░░░░   ░░░░░░   ░░░░░░    ░░░░░░░░ ░░░░░      ░░░░░░    ░░░░░░░░░   ░░░░░░░░    ░░░░░   ░░░░░░  \r\n" + //
+                            "                                                                                                      \r\n" + //
+                            "                                                                                                      \r\n" + //
+                            "                                                                                                      ");
           System.out.println("1. Verify Access");
-System.out.println("2. Show Logs");
-System.out.println("3. Show Log Count");
-System.out.println("4. Show Alerts");
-System.out.println("5. Handle Next Alert");
-System.out.println("6. Register Visitor");
-System.out.println("7. Process Next Visitor");
-System.out.println("8. Show Visitor Queue");
-System.out.println("9. Show Current Guard");
-System.out.println("10. Rotate Guard Shift");
-System.out.println("11. Change Access Rule");
-System.out.println("12. Undo Last Rule Change");
-System.out.println("13. Show Last Rule Change");
-
-System.out.println("14. Analyze Zone Access");
-System.out.println("15. Detect Suspicious Activity");
-System.out.println("16. Sort Logs by Time");
-System.out.println("17. Exit");
+          System.out.println("2. Show Logs");
+          System.out.println("3. Show Log Count");
+          System.out.println("4. Show Alerts");
+          System.out.println("5. Handle Next Alert");
+          System.out.println("6. Register Visitor");
+          System.out.println("7. Process Next Visitor");
+          System.out.println("8. Show Visitor Queue");
+          System.out.println("9. Show Current Guard");
+          System.out.println("10. Rotate Guard Shift");
+          System.out.println("11. Change Access Rule");
+          System.out.println("12. Undo Last Rule Change");
+          System.out.println("13. Show Last Rule Change");
+          System.out.println("14. Analyze Zone Access");
+          System.out.println("15. Detect Suspicious Activity");
+          System.out.println("16. Sort Logs by Time");
+          System.out.println("17. Exit");
 
             System.out.print("Choose option: ");
             int choice = sc.nextInt();
@@ -144,39 +157,39 @@ System.out.println("17. Exit");
 
                case 11:
 
-    System.out.print("Enter rule change description: ");
-    String rule = sc.nextLine();
+                    System.out.print("Enter rule change description: ");
+                    String rule = sc.nextLine();
 
-    ruleService.changeRule(rule);
-    break;
-
-
-case 12:
-    ruleService.undoLastRule();
-    break;
+                    ruleService.changeRule(rule);
+                    break;
 
 
-case 13:
-    ruleService.showLastRule();
-    break;
+                case 12:
+                    ruleService.undoLastRule();
+                    break;
 
 
-case 14:
-    analysisService.analyzeZoneAccess();
-    break;
+                case 13:
+                    ruleService.showLastRule();
+                    break;
 
-case 15:
-    analysisService.detectSuspiciousActivity();
-    break;
 
-case 16:
-    analysisService.sortLogsByTime();
-    break;
+                case 14:
+                    analysisService.analyzeZoneAccess();
+                    break;
 
-case 17:
-    System.out.println("System shutting down...");
-    sc.close();
-    return;
+                case 15:
+                    analysisService.detectSuspiciousActivity();
+                    break;
+
+                case 16:
+                    analysisService.sortLogsByTime();
+                    break;
+
+                case 17:
+                    System.out.println("System shutting down...");
+                    sc.close();
+                    return;
 
                 default:
                     System.out.println("Invalid option.");
