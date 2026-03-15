@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/SecureGateCLI.png" width="600">
+  <img src="assets/SecureGateCLI.png" width="600">
 </p>
 
 
