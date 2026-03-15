@@ -1,18 +1,17 @@
 package main;
 
-import java.util.Scanner;
-import java.util.List;
-
 import datastructures.ZoneArray;
+import java.util.List;
+import java.util.Scanner;
 import models.User;
+import services.AlertService;
 import services.AuthenticationService;
+import services.GuardService;
 import services.LogService;
+import services.RuleService;
+import services.VisitorService;
 import utils.FileHandler;
 import utils.InputValidator;
-import services.AlertService;
-
-import services.VisitorService;
-import services.GuardService;
 
 public class SecureGateMain {
 
@@ -36,20 +35,24 @@ public class SecureGateMain {
 
         VisitorService visitorService = new VisitorService();
         GuardService guardService = new GuardService();
+        RuleService ruleService = new RuleService();
 
         while (true) {
 
-            System.out.println("1. Verify Access");
-            System.out.println("2. Show Logs");
-            System.out.println("3. Show Log Count");
-            System.out.println("4. Show Alerts");
-            System.out.println("5. Handle Next Alert");
-            System.out.println("6. Register Visitor");
-            System.out.println("7. Process Next Visitor");
-            System.out.println("8. Show Visitor Queue");
-            System.out.println("9. Show Current Guard");
-            System.out.println("10. Rotate Guard Shift");
-            System.out.println("11. Exit");
+          System.out.println("1. Verify Access");
+System.out.println("2. Show Logs");
+System.out.println("3. Show Log Count");
+System.out.println("4. Show Alerts");
+System.out.println("5. Handle Next Alert");
+System.out.println("6. Register Visitor");
+System.out.println("7. Process Next Visitor");
+System.out.println("8. Show Visitor Queue");
+System.out.println("9. Show Current Guard");
+System.out.println("10. Rotate Guard Shift");
+System.out.println("11. Change Access Rule");
+System.out.println("12. Undo Last Rule Change");
+System.out.println("13. Show Last Rule Change");
+System.out.println("14. Exit");
 
             System.out.print("Choose option: ");
             int choice = sc.nextInt();
@@ -132,10 +135,29 @@ public class SecureGateMain {
                     guardService.startShiftRotation();
                     break;
 
-                case 11:
-                    System.out.println("System shutting down...");
-                    sc.close();
-                    return;
+               case 11:
+
+    System.out.print("Enter rule change description: ");
+    String rule = sc.nextLine();
+
+    ruleService.changeRule(rule);
+    break;
+
+
+case 12:
+    ruleService.undoLastRule();
+    break;
+
+
+case 13:
+    ruleService.showLastRule();
+    break;
+
+
+case 14:
+    System.out.println("System shutting down...");
+    sc.close();
+    return;
 
                 default:
                     System.out.println("Invalid option.");
